@@ -1,17 +1,30 @@
-General dependencies
-General needs for the tools to work:
+## General dependencies ##
+
+*General needs for the tools to work:*
+
 python3 installed. Best option is to have conda version installed.
+
 Most important dependencies:
+
+```
 pandas: conda install pandas
 numpy: conda install numpy
-Installation of this repository
+
+```
+
+##Installation of this repository##
+
 Install this repository (in develop mode) as follows:
+
 pip install -e .
+
 After the installation you will have a series of comands available, all with a prefix according to their role:
+
 rna-trimandalign
 exon-bcbio
 exon-copywriter
 exon-sciclone
+
 For more commands just try with rna- and exon- and hit tab in the terminal.
 Configuration file
 A configuration is needed at the exact location: ~/.agbaldus/agbaldus-seq.conf. 
