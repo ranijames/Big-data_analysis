@@ -1,0 +1,81 @@
+[2015-09-21T13:15Z] /home/mpschr/bin/bcbionextgen/data/anaconda/bin/cutadapt --times=2 --quality-base=33 --quality-cutoff=5 --format=fastq --adapter=TACACTCTTTCCCTACACGACGCTCTTCCGATCT --adapter=GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT  --minimum-length=25  -o /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/trimmed/tx/tmpP5Oda3/AML_1.fastq.trimmed.tmp.subset.gz -p /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/trimmed/tx/tmpP5Oda3/AML_2.fastq.trimmed.tmp.subset.gz /home/mpschr/Documents/projects/rnaseq-raw/testsample/AML/AML_1.fastq.subset.gz /home/mpschr/Documents/projects/rnaseq-raw/testsample/AML/AML_2.fastq.subset.gz;/home/mpschr/bin/bcbionextgen/data/anaconda/bin/cutadapt --times=2 --quality-base=33 --quality-cutoff=5 --format=fastq --adapter=TACACTCTTTCCCTACACGACGCTCTTCCGATCT --adapter=GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT  --minimum-length=25  -o /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/trimmed/tx/tmpP5Oda3/AML_2.fastq.trimmed.subset.gz -p /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/trimmed/tx/tmpP5Oda3/AML_1.fastq.trimmed.subset.gz /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/trimmed/tx/tmpP5Oda3/AML_2.fastq.trimmed.tmp.subset.gz /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/trimmed/tx/tmpP5Oda3/AML_1.fastq.trimmed.tmp.subset.gz; rm /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/trimmed/tx/tmpP5Oda3/AML_1.fastq.trimmed.tmp.subset.gz /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/trimmed/tx/tmpP5Oda3/AML_2.fastq.trimmed.tmp.subset.gz
+[2015-09-21T13:15Z] /home/mpschr/bin/bcbionextgen/tools/bin/STAR --genomeDir /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/star/ --readFilesIn /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/trimmed/AML_1.fastq.trimmed.subset.gz /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/trimmed/AML_2.fastq.trimmed.subset.gz --runThreadN 10 --outFileNamePrefix /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio --outReadsUnmapped Fastx --outFilterMultimapNmax 10 --outStd SAM --outSAMunmapped Within --outSAMattributes NH HI NM MD AS --readFilesCommand zcat  --outSAMattrRGline ID:1 PL:illumina PU:1_sep21_AML-bcbio SM:AML  --outSAMstrandField intronMotif  | /home/mpschr/bin/bcbionextgen/tools/bin/samtools sort -@ 10 -m 1G  -T /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/tx/tmpfdav49/AML-sorttmp -o /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/tx/tmpfdav49/AML.bam /dev/stdin
+[2015-09-21T13:20Z] /home/mpschr/bin/bcbionextgen/tools/bin/sambamba index -t 10 /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/tx/tmpdeho_Z/AML.bam
+
+
+/home/mpschr/bin/featureCounts
+    -a /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/rnaseq/ref-transcripts.gtf
+    -o /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/htseq-count/tx/tmpAXxgzL/AML.counts
+    -s 0
+    -p
+    -B
+    -C /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/AML.bam
+
+
+
+ /home/mpschr/bin/bcbionextgen/tools/bin/cufflinks
+    --num-threads 10
+    --quiet
+    --no-update-check
+    --max-bundle-frags 2000000
+    --library-type fr-unstranded
+    --frag-bias-correct /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/seq/GRCh37.fa
+    --multi-read-correct
+    --upper-quartile-norm
+    --GTF /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/rnaseq/ref-transcripts.gtf
+    --mask-file /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/rnaseq/ref-transcripts-mask.gtf
+    --output-dir /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/cufflinks/tx/tmpembZ4K/AML
+    /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/AML.bam
+
+
+
+/home/mpschr/bin/bcbionextgen/data/anaconda/bin/python  /home/mpschr/bin/bcbionextgen/tools/lib/R/site-library/DEXSeq/python_scripts/dexseq_count.py
+ -f bam
+ -r pos
+ -p yes
+ -s no
+ /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/rnaseq/../rnaseq/ref-transcripts.dexseq.gff
+ /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/AML.bam
+ /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/dexseq/tx/tmpmdXNH0/AML.dexseq
+
+
+
+#dedup
+[2015-09-21T13:28Z] /home/mpschr/bin/bcbionextgen/tools/bin/bammarkduplicates tmpfile=/home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/tx/tmpJMycIE/AML-dedup-markdup markthreads=3 I=/home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/AML.bam O=/home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/tx/tmp3wW3pT/AML-dedup.bam
+[2015-09-21T13:28Z] /home/mpschr/bin/bcbionextgen/tools/bin/sambamba index -t 3 /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/tx/tmpopc_06/AML-dedup.bam
+
+#badcigar
+[2015-09-21T13:28Z] java -Xms454m -Xmx18181m -XX:+UseSerialGC -Djava.io.tmpdir=/home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/tx/tmp6qd0Wf -jar /home/mpschr/bin/bcbionextgen/data/toolplus/gatk/3.4-0-g7e26428/GenomeAnalysisTK.jar -T SplitNCigarReads -R /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/seq/GRCh37.fa -I /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/AML-dedup.bam -o /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/tx/tmpaxeNGT/AML-dedup.splitN.bam -rf ReassignOneMappingQuality -RMQF 255 -RMQT 60 -rf UnmappedRead -U ALLOW_N_CIGAR_READS --read_filter BadCigar --read_filter NotPrimaryAlignment
+[2015-09-21T13:28Z] /home/mpschr/bin/bcbionextgen/tools/bin/sambamba index -t 3 /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/tx/tmpHRu3ox/AML-dedup.splitN.bam
+
+[2015-09-21T13:28Z] java -Xms454m -Xmx18181m -XX:+UseSerialGC -Djava.io.tmpdir=/home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/tx/tmpmZIBFk -jar /home/mpschr/bin/bcbionextgen/data/toolplus/gatk/3.4-0-g7e26428/GenomeAnalysisTK.jar -T HaplotypeCaller -R /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/seq/GRCh37.fa -I /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/AML-dedup.splitN.bam -o /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/tx/tmpQcmxhw/AML-dedup.splitN.gvcf -nct 3 --emitRefConfidence GVCF --variant_index_type LINEAR --variant_index_parameter 128000 -dontUseSoftClippedBases -stand_call_conf 20.0 -stand_emit_conf 20.0 -U LENIENT_VCF_PROCESSING --read_filter BadCigar --read_filter NotPrimaryAlignment
+[2015-09-21T14:11Z] java -Xms500m -Xmx49141m -XX:+UseSerialGC -Djava.io.tmpdir=/home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/tx/tmpma7hcB -jar /home/mpschr/bin/bcbionextgen/data/toolplus/gatk/3.4-0-g7e26428/GenomeAnalysisTK.jar -T GenotypeGVCFs -R /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/seq/GRCh37.fa -o /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/variation/tx/tmpfwwDcI/combined.vcf --variant /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/AML-dedup.splitN.gvcf -nt 3 -U LENIENT_VCF_PROCESSING --read_filter BadCigar --read_filter NotPrimaryAlignment
+
+[2015-09-21T14:22Z] /home/mpschr/bin/bcbionextgen/tools/bin/fastqc -t 3 --extract -o /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/qc/AML/tx/tmpRnXk9S -f bam /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/AML.bam
+[2015-09-21T14:22Z] unset DISPLAY && /home/mpschr/bin/bcbionextgen/tools/bin/qualimap rnaseq -outdir /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/qc/AML/qualimap -a proportional -bam /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/AML.bam -gtf /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/rnaseq/ref-transcripts.gtf --java-mem-size=8g
+[2015-09-21T14:23Z] java -Xms375m -Xmx1000m -XX:+UseSerialGC -XX:+UseSerialGC -jar /home/mpschr/bin/bcbionextgen/tools/share/java/picard/MarkDuplicates.jar INPUT=/home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/AML.bam OUTPUT=/home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/tx/tmpZbRmE9/AML-dup.bam TMP_DIR=/home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/tx/tmp358Q8v REMOVE_DUPLICATES=true METRICS_FILE=/home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/tx/tmpZbRmE9/AML-dup.dup_metrics PROGRAM_RECORD_ID=null VALIDATION_STRINGENCY=SILENT
+[2015-09-21T14:23Z] /home/mpschr/bin/bcbionextgen/tools/bin/gatk-framework -Xms750m -Xmx2000m -XX:+UseSerialGC -U LENIENT_VCF_PROCESSING --read_filter BadCigar --read_filter NotPrimaryAlignment -T CountReads -R /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/seq/GRCh37.fa -I /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/align/AML/1_sep21_AML-bcbio_star/AML.bam -log /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/qc/AML/qualimap/tx/tmpS953UB/rRNA.counts -L /home/mpschr/Documents/projects/rnaseq-raw/scratch_bcbio_AML/qc/AML/qualimap/rRNA.list --filter_reads_with_N_cigar -allowPotentiallyMisencodedQuals
+mpschr@hirvi[rnaseq-raw]$ wc -l scratch_bcbio_AML/log/bcbio-nextgen-commands.log
+
+
+
+####################### exon pileup
+
+/home/mpschr/bin/bcbionextgen/tools/bin/samtools mpileup
+    -f /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/seq/GRCh37.fa
+    -d 1000
+    -L 1000
+    -l /home/mpschr/Documents/projects/exon/scratch/scratch_PL07/varscan/21/bPL07_REL-21_46529003_48129895-raw-regions.bed
+    /home/mpschr/Documents/projects/exon/scratch/scratch_PL07/bamprep/PL07_REL/21/2_PL07_hirvi20150902-sort-21_46529003_48129895-prep.bam
+        >
+    /home/mpschr/Documents/projects/exon/scratch/scratch_PL07/varscan/21/tx/tmpSFs06w/tx/tmpxyz_ao/bPL07_REL-21_46529003_48129895-raw-tumor.mpileup
+
+# my example:
+
+cd /home/mpschr/Documents/projects/rna/output/AE05/AE05_ID/align
+samtools mpileup -u -t DP -t DV -t DP4 --min-MQ 40 --min-BQ 35 -f /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/seq/GRCh37.fa
+        --region "22:29907104-29907105" AE05_ID.bam
+        | bcftools view --min-alleles 3
+
+
+

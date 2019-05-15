@@ -1,0 +1,60 @@
+[DEFAULT]
+bcbio_backup = '/home/mpschr/mounts/all_data/vbp_all/processed/exon'
+cores = 10
+max_cores = 30
+notify_email = michael.p.schroeder@gmail.com
+genome = /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/seq/GRCh37.fa
+transcripts_gtf = /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/rnaseq/ref-transcripts.gtf
+transcripts_gtf_mask = /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/rnaseq/ref-transcripts-mask.gtf
+
+[BCFTOOLS]
+bin = /home/mpschr/bin/bcbionextgen/tools/bin/bcftools
+
+[CUFFLINKS]
+bin = /home/mpschr/bin/bcbionextgen/tools/bin/cufflinks
+
+[CUTADAPT]
+bin = cutadapt
+adapters = TACACTCTTTCCCTACACGACGCTCTTCCGATCT, GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT
+
+[DEFUSE]
+cores = 8
+config = /home/mpschr/anaconda3/opt/defuse/scripts/config.txt 
+data_dir = /home/mpschr/Data/defuse/
+
+[MUTREPORT]
+cgc = /home/mpschr/Data/cancer_drivers/cgc/cgc.genelist.bcbio.tsv
+
+    [[cancer_gene_lists]]
+    intogen = /home/mpschr/Data/cancer_drivers/intogen/intogen-drivers.bcbiosymbols.list
+    tumorportal = /home/mpschr/Data/cancer_drivers/tumorportal/tumorportal.bcbiosymbols.list
+    gmall = /home/mpschr/Data/cancer_drivers/gmall/gmall.bcbiosymbols.list
+    blacklist = /home/mpschr/Data/cancer_drivers/black.list
+
+[POPVAR]
+pop_exacsnps_bed = /home/mpschr/Data/snp_sites/exac_variant_sites.snp.bed
+pop_cosmicrec_bed = /home/mpschr/Data/cosmic/cosmic_rec5.bed
+
+[TARGET_REGIONS]
+exon=/home/mpschr/Data/agilent_sure_select_v5+utr/S04380219_Covered-6columns.bed
+#panel=/home/mpschr/Documents/projects/exon/panel/Validierungspanel/Validierungspanel_1_Regions.6columns.bed
+panel=/home/mpschr/Documents/projects/exon/panel/Validierungspanel/Validierungspanel_1_Covered.6columns.bed
+
+
+[QUALIMAP]
+bin = /home/mpschr/bin/bcbionextgen/tools/bin/qualimap
+
+[RNASEQC]
+jar = /home/mpschr/bin/RNA-SeQC_v1.1.8.jar
+
+[SAMBAMBA]
+bin = /home/mpschr/bin/bcbionextgen/tools/bin/sambamba
+
+[SAMTOOLS]
+bin = /home/mpschr/bin/bcbionextgen/tools/bin/samtools
+
+[STAR]
+bin = STAR
+cores = 10
+genome_dir = /home/mpschr/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/star
+
