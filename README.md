@@ -25,3 +25,9 @@ exon-bcbio
 exon-copywriter
 exon-sciclone
 
+In order to pull this repository please follow,
+
+```
+git pull git@github.com:ranijames/Big-data_analysis.git
+```
+
