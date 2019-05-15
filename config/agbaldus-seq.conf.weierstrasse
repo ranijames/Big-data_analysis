@@ -1,16 +1,16 @@
 [DEFAULT]
 cores = 8 
 max_cores = 30
-notify_email = michael.p.schroeder@gmail.com
-genome = /extra/schroeder/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/seq/GRCh37.fa
-transcripts_gtf = /extra/schroeder/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/rnaseq/ref-transcripts.gtf
-transcripts_gtf_mask = /extra/schroeder/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/rnaseq/ref-transcripts-mask.gtf
+notify_email = alvarani@gmail.com
+genome = /extra/user/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/seq/GRCh37.fa
+transcripts_gtf = /extra/user/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/rnaseq/ref-transcripts.gtf
+transcripts_gtf_mask = /extra/user/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/rnaseq/ref-transcripts-mask.gtf
 
 [CUFFLINKS]
-bin = /extra/schroeder/bin/cufflinks-2.2.1/src/cufflinks
+bin = /extra/user/bin/cufflinks-2.2.1/src/cufflinks
 
 [CUTADAPT]
-bin = /home/schroeder/bin/bcbionextgen/data/anaconda/bin/cutadapt
+bin = /home/user/bin/bcbionextgen/data/anaconda/bin/cutadapt
 #normal
 #adapters = TACACTCTTTCCCTACACGACGCTCTTCCGATCT, GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT
 #rRNA
@@ -18,20 +18,20 @@ adapters = AGATGTGTATAAGAGACAG, TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG, CTGTCTCTTATAC
 
 [DEFUSE]
 cores = 8
-config = /home/schroeder/anaconda3/opt/defuse/scripts/config.txt 
-data_dir = /extra/schroeder/data/defuse/
+config = /home/user/anaconda3/opt/defuse/scripts/config.txt 
+data_dir = /extra/user/data/defuse/
 
 [QUALIMAP]
-bin = /extra/schroeder/bin/bcbionextgen/tools/bin/qualimap
+bin = /extra/user/bin/bcbionextgen/tools/bin/qualimap
 
 [RNASEQC]
-jar = /extra/schroeder/bin/RNA-SeQC_v1.1.8.jar
+jar = /extra/user/bin/RNA-SeQC_v1.1.8.jar
 
 
 [SAMBAMBA]
-bin = /extra/schroeder/bin/bcbionextgen/tools/bin/sambamba
+bin = /extra/user/bin/bcbionextgen/tools/bin/sambamba
 
 [STAR]
 bin = STAR
 cores = 10
-genome_dir = /extra/schroeder/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/star/
+genome_dir = /extra/user/bin/bcbionextgen/data/genomes/Hsapiens/GRCh37/star/
