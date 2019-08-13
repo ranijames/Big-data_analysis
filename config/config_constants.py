@@ -1,4 +1,4 @@
-__author__ = 'arj'
+__author__ = 'ARJ'
 
 ## DEFAULT SECTION
 NOTIFY_EMAIL = "DEFAULT.notify_email"
