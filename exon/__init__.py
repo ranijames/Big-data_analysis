@@ -1,4 +1,4 @@
-__author__ = 'mpschr'
+__author__ = 'arj'
 
 import sys
 sys.path.append(".")
