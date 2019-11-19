@@ -1,6 +1,6 @@
 import argparse
 
-__author__ = 'mpschr'
+__author__ = 'ARJ'
 
 CMD_ZCAT_TEMPLATE = 'zcat {}'
 CMD_VCF_FILTER = 'vcffilter -f "! DB & MQ > 30 & QD > 20"'
