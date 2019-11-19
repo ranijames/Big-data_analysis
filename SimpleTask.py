@@ -3,7 +3,7 @@ import sys
 from allpy.exon.mutations.utils import Timer
 from allpy.pipelineutils.filepaths import WorkDirs, OutFiles
 
-__author__ = 'mpschr'
+__author__ = 'arj'
 
 
 class SimpleTask():
