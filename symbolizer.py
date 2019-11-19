@@ -2,7 +2,7 @@ import pandas as pd
 
 HGNC_DB = '/home/mpschr/Data/hgnc/hgnc_symbols.txt'
 
-__author__ = 'mpschr'
+__author__ = 'arj'
 
 
 class Symbolizer(object):
